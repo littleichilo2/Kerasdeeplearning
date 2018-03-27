@@ -23,19 +23,19 @@ from keras import regularizers
 import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-def baseline_model(init_mode='uniform'):#
+def baseline_model(reg1=regularizers.L1L2(0.0,0.0),reg2=regularizers.L1L2(0.0,0.0)):#
 	model=Sequential()
-	#model.add(Dropout(dropout_rate))
-	model.add(Dense(900,kernel_initializer='uniform',input_shape=(11,),kernel_constraint=maxnorm(1),activation='relu'))#,,input_shape=(11,)bias_regularizer=regularizers.L1L2(0.0,0.001),kernel_regularizer=regularizers.L1L2(0.0,0.0),bias_regularizer=regularizers.L1L2(0.0,0.0)
+	#model.add(Dropout(0.0),input_shape=(11,))
+	model.add(Dense(900,kernel_initializer='he_uniform',input_shape=(11,),bias_constraint=maxnorm(5),kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,activation='relu'))#,,input_shape=(11,)bias_constraint=maxnorm(weight_constraint),kernel_regularizer=regularizers.L1L2(0.0,0.0),bias_regularizer=regularizers.L1L2(0.0,0.0)
 
 	#model.add(BatchNormalization())
-	model.add(Dense(900,kernel_initializer='uniform',kernel_constraint=maxnorm(1),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
+	model.add(Dense(900,kernel_initializer='he_uniform',kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,bias_constraint=maxnorm(5),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
 	#model.add(BatchNormalization())
-	model.add(Dense(900,kernel_initializer='uniform',kernel_constraint=maxnorm(1),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
+	model.add(Dense(900,kernel_initializer='he_uniform',kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,bias_constraint=maxnorm(5),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
 	#model.add(BatchNormalization())
-	model.add(Dense(900,kernel_initializer='uniform',kernel_constraint=maxnorm(1),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
-	model.add(Dense(900,kernel_initializer='uniform',kernel_constraint=maxnorm(1),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
-	model.add(Dense(900,kernel_initializer='uniform',kernel_constraint=maxnorm(1),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
+	model.add(Dense(900,kernel_initializer='he_uniform',kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,bias_constraint=maxnorm(5),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
+	model.add(Dense(900,kernel_initializer='he_uniform',kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,bias_constraint=maxnorm(5),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
+	model.add(Dense(900,kernel_initializer='he_uniform',kernel_constraint=maxnorm(1),kernel_regularizer=reg1,bias_regularizer=reg2,bias_constraint=maxnorm(5),activation='relu'))#,kernel_constraint=maxnorm(weight_constraint)
 	#model.add(Dense(neurons,kernel_initializer='uniform',activation='relu'))
 	#model.add(Dense(neurons,kernel_initializer='uniform',activation='relu'))
 	#model.add(Dense(100,kernel_initializer='uniform',activation='relu'))
@@ -133,18 +133,20 @@ epochs = [1000]#
 #activation = ['softplus']#ELU,ThresholdedReLU,PReLU,LeakyReLU
 #activation = ['softmax', 'softplus', 'softsign', 'relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear']
 #activation2 = ['softmax', 'softplus', 'softsign', 'relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear']
-#reg=[regularizers.L1L2(0.0,0.0),regularizers.L1L2(0.0,0.001),regularizers.L1L2(0.0,0.01),regularizers.L1L2(0.0,0.1),regularizers.L1L2(0.001,0.0),regularizers.L1L2(0.001,0.001),regularizers.L1L2(0.001,0.01),regularizers.L1L2(0.001,0.1),regularizers.L1L2(0.01,0.0),regularizers.L1L2(0.01,0.001),regularizers.L1L2(0.01,0.01),regularizers.L1L2(0.01,0.1),regularizers.L1L2(0.1,0.0),regularizers.L1L2(0.1,0.001),regularizers.L1L2(0.1,0.01),regularizers.L1L2(0.1,0.1)]
+reg1=[regularizers.L1L2(0.0,0.0),regularizers.L1L2(0.0,0.001),regularizers.L1L2(0.0,0.01),regularizers.L1L2(0.0,0.1),regularizers.L1L2(0.001,0.0),regularizers.L1L2(0.001,0.001),regularizers.L1L2(0.001,0.01),regularizers.L1L2(0.001,0.1),regularizers.L1L2(0.01,0.0),regularizers.L1L2(0.01,0.001),regularizers.L1L2(0.01,0.01),regularizers.L1L2(0.01,0.1),regularizers.L1L2(0.1,0.0),regularizers.L1L2(0.1,0.001),regularizers.L1L2(0.1,0.01),regularizers.L1L2(0.1,0.1)]
+reg2=[regularizers.L1L2(0.0,0.0),regularizers.L1L2(0.0,0.001),regularizers.L1L2(0.0,0.01),regularizers.L1L2(0.0,0.1),regularizers.L1L2(0.001,0.0),regularizers.L1L2(0.001,0.001),regularizers.L1L2(0.001,0.01),regularizers.L1L2(0.001,0.1),regularizers.L1L2(0.01,0.0),regularizers.L1L2(0.01,0.001),regularizers.L1L2(0.01,0.01),regularizers.L1L2(0.01,0.1),regularizers.L1L2(0.1,0.0),regularizers.L1L2(0.1,0.001),regularizers.L1L2(0.1,0.01),regularizers.L1L2(0.1,0.1)]
+
 #optimizer = ['SGD', 'RMSprop', 'Adagrad', 'Adadelta', 'Adam', 'Adamax', 'Nadam']
 #optimizer = [ 'Adagrad']
 #neurons=[1000,900,800,700,600,500,400,300,200]#,30000,12500,100003875,,,90,80,70,60,,40,30,20,10,51937,1000,500,
 #neurons2=[100]#
 #weight_constraint = [1, 2, 3, 4, 5]
-init_mode = ['uniform', 'lecun_uniform', 'normal', 'zero', 'glorot_normal', 'glorot_uniform', 'he_normal', 'he_uniform']
+#init_mode = ['uniform', 'lecun_uniform', 'normal', 'zero', 'glorot_normal', 'glorot_uniform', 'he_normal', 'he_uniform']
 #dropout_rate = [0.0,0.2,0.4,0.6]#
 #learn_rate = [0.001, 0.01,0.0001,0.1, 0.2, 0.3]
 #momentum = [0.0, 0.2, 0.4, 0.6, 0.8, 0.9]#
 
-param_grid = dict(batch_size=batch_size, epochs=epochs,init_mode=init_mode)
+param_grid = dict(batch_size=batch_size, epochs=epochs,reg1=reg1,reg2=reg2)
 grid = GridSearchCV(estimator=model,param_grid=param_grid, n_jobs=1,cv=5,scoring='neg_mean_absolute_error')
 grid_result = grid.fit(sX, sY)
 print("Best: %f using %s" % (-grid_result.best_score_, grid_result.best_params_))
